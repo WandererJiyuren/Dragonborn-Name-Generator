@@ -1,0 +1,70 @@
+body{
+	color:#ea7200;
+	background-color:#010101;
+	text-align: center;
+}
+
+ul{
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+}
+
+input{
+	text-align: center;
+	width: 40px;
+	padding-left: 10px;
+	background-color:#181818;
+	color: #ea7200;
+	border-color: #ea7200;
+	border-radius:50px;
+}
+
+input:focus{
+	outline: none;
+}
+
+#phoneInput{
+	width: 70px;
+}
+
+#submit{
+	width: 60px;
+	padding-left: 5px;
+	background-color: #121212;
+	color: #ea5200;
+	border-color: #ea5000;
+	border-radius: 3px;
+}
+
+.columnNW{
+	display: flex;
+	flex-flow: nowrap column;
+}
+
+.rowNW{
+	display: flex;
+	flex-flow: nowrap row;
+}
+
+.alignCenter{
+	align-items: center;
+}
+
+.justifyCenter{
+	justify-content: center;
+}
+.justifySB{
+	justify-content: space-between;
+}
+
+.widthundred{
+	width: 100%;
+}
+
+.bottomMargin1{
+	margin-bottom: 1rem;
+}
+.leftMargin3{
+	margin-left: 3rem;
+}

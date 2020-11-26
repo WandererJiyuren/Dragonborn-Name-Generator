@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset = 'UTF-8'/>
+		<meta name = 'viewport' content = 'width = device-width initial-scale = 1.0'/>
+		<link rel="stylesheet" href = "Styles.css">
+	</head>
+	<body>
+		<main class = 'columnNW alignCenter'>
+			<section>
+				<h2>Dragonborn Name Generator</h2>
+				<input class = 'widthundred' type = 'button' value = 'Generate' onclick = 'randomize()'/>
+				<select id = 'limit' class = 'widthundred bottomMargin1'>
+					<option value = '2'>2</option>
+					<option value = '3'>3</option>
+					<option value = '4'>4</option>
+					<option value = '5'>5</option>
+				</select>
+				<ul class = 'rowNW justifySB'>
+					<li id = 'dragonName'></li>
+					<li id = 'englishTrans' class = 'leftMargin3'></li>
+				</ul>
+			</section>
+		</main>
+		<script>
+			const draconic = [{ eng : 'above', dra : 'svern' }, { eng : 'after', dra : 'ghent' }, { eng : 'air', dra : 'thrae' }, { eng : 'an', dra : 'aan' },
+			{ eng : 'and', dra : 'vur' }, { eng : 'or', dra : 'ahrk' }, { eng : 'animal', dra : 'baeshra' }, { eng : 'arise', dra : 'alok' },
+			{ eng : 'armor', dra : 'litrix' }, { eng : 'arrow', dra : 'svent' }, { eng : 'ash', dra : 'vignar' }, { eng : 'at', dra : 'ahst' },
+			{ eng : 'axe', dra : 'garurt' }, { eng : 'bag', dra : 'waeth' }, { eng : 'battle', dra : 'vargach' }, { eng : 'beautiful', dra : 'vorel' },
+			{ eng : 'beautiful', dra : 'brit' }, { eng : 'beauty', dra : 'brii' }, { eng : 'bronze', dra : 'aujir' }, { eng : 'before', dra : 'ghoros' },
+			{ eng : 'behind', dra : 'zara' }, { eng : 'below', dra : 'vhir' }, { eng : 'beside', dra : 'unsinti' }, { eng : 'big', dra : 'turalisj' },
+			{ eng : 'bitter', dra : 'ahzid' }, { eng : 'black', dra : 'vutha' }, { eng : 'bleed', dra : 'valeij' }, { eng : 'blood', dra : 'iejir' },
+			{ eng : 'blue', dra : 'ulhar' }, { eng : 'bold', dra : 'boziik' }, { eng : 'boldly', dra : 'boziik' }, { eng : 'borrow', dra : 'bodiis' },
+			{ eng : 'bow', dra : 'vaex' }, { eng : 'burn', dra : 'valignat' }, { eng : 'or', dra : 'ag' }, { eng : 'bravery', dra : 'sveargith' },
+			{ eng : 'breed', dra : 'maurg' }, { eng : 'bribe', dra : 'durah' }, { eng : 'but', dra : 'shar' }, { eng : 'cave', dra : 'waere' },
+			{ eng : 'celestial', dra : 'athear' }, { eng : 'century', dra : 'ierikc' }, { eng : 'cleric', dra : 'sunathaer' }, { eng : 'claw', dra : 'gix' },
+			{ eng : 'copper', dra : 'rach' }, { eng : 'courage', dra : 'ahkrin' }, { eng : 'cow', dra : 'rhyvos' }, { eng : 'coward', dra : 'faessi' },
+			{ eng : 'crippled', dra : 'thurgix' }, { eng : 'dance', dra : 'vaeri' }, { eng : 'danger', dra : 'korth' }, { eng : 'day', dra : 'kear' },
+			{ eng : 'dead', dra : 'loex' }, { eng : 'deity', dra : 'urathear' }, { eng : 'demon', dra : 'kothar' }, { eng : 'destroyer', dra : 'al' },
+			{ eng : 'die', dra : 'loreat' }, { eng : 'dragon', dra : 'darastrix' }, { eng : 'dwarf', dra : 'tundar' }, { eng : 'earth', dra : 'edar' },
+			{ eng : 'elf', dra : 'vaecaesin' }, { eng : 'enchanted', dra : 'levex' }, { eng : 'enemy', dra : 'irlym' }, { eng : 'ever', dra : 'alun' },
+			{ eng : 'evil', dra : 'malsvir' }, { eng : 'eye', dra : 'sauriv' }, { eng : 'far', dra : 'karif' }, { eng : 'fate', dra : 'haurach' },
+			{ eng : 'father', dra : 'bormah' }, { eng : 'female', dra : 'aesthyr' }, { eng : 'few', dra : 'lauth' }, { eng : 'fire', dra : 'ixen' },
+			{ eng : 'flee', dra : 'osvith' }, { eng : 'flee', dra : 'bovul' }, { eng : 'fly', dra : 'ustrat' }, { eng : 'food', dra : 'achthend' },
+			{ eng : 'for', dra : 'ihk' }, { eng : 'forest', dra : 'caesin' }, { eng : 'fortress', dra : 'hurthi' }, { eng : 'foul', dra : 'bein' },
+			{ eng : 'friendliness', dra : 'thurirl' }, { eng : 'gem', dra : 'kethend' }, { eng : 'give', dra : 'majak' }, { eng : 'gnome', dra : 'terunt' },
+			{ eng : 'go', dra : 'gethrisj' }, { eng : 'gold', dra : 'aurix' }, { eng : 'good', dra : 'bensvelk' }, { eng : 'green', dra : 'achuak' },
+			{ eng : 'guide', dra : 'aak' }, { eng : 'gut', dra : 'gixustrat' }, { eng : 'halfling', dra : 'rauhiss' }, { eng : 'hammer', dra : 'jhank' },
+			{ eng : 'hate', dra : 'dartak' }, { eng : 'heal', dra : 'irisv' }, { eng : 'hill', dra : 'ahrol' }, { eng : 'home', dra : 'okarthel' },
+			{ eng : 'human', dra : 'munthrek' }, { eng : 'humble', dra : 'banaar' }, { eng : 'hunger', dra : 'bahlok' }, { eng : 'hunter', dra : 'ah' },
+			{ eng : 'husband', dra : 'ahmul' }, { eng : 'if', dra : 'sjek' }, { eng : 'in', dra : 'persvek' }, { eng : 'iron', dra : 'usk' },
+			{ eng : 'join', dra : 'aav' }, { eng : 'kill', dra : 'svent' }, { eng : 'leader', dra : 'maekrix' }, { eng : 'love', dra : 'askk' },
+			{ eng : 'magic', dra : 'arcaniss' }, { eng : 'male', dra : 'sthyr' }, { eng : 'many', dra : 'throden' }, { eng : 'may', dra : 'aal' },
+			{ eng : 'meat', dra : 'rhyaex' }, { eng : 'mercy', dra : 'aaz' }, { eng : 'mountain', dra : 'verthicha' }, { eng : 'name', dra : 'ominak' },
+			{ eng : 'necromancy', dra : 'alok-dilon' }, { eng : 'near', dra : 'leirith' }, { eng : 'night', dra : 'thurkear' }, { eng : 'nightvision', dra : 'sverak' },
+			{ eng : 'no', dra : 'thric' }, { eng : 'nor', dra : 'thur' }, { eng : 'ogre', dra : 'ghontix' }, { eng : 'on', dra : 'shafaer' },
+			{ eng : 'one', dra : 'ir' }, { eng : 'open', dra : 'bex' }, { eng : 'or', dra : 'usv' }, { eng : 'orc', dra : 'ghik' }, { eng : 'peace', dra : 'martivir' },
+			{ eng : 'pillage', dra : 'thadarsh' }, { eng : 'platinum', dra : 'ux' }, { eng : 'rain', dra : 'oposs' }, { eng : 'red', dra : 'charir' },
+			{ eng : 'rest', dra : 'ssifisv' }, { eng : 'scorn', dra : 'beyn' }, { eng : 'scroll', dra : 'sjir' }, { eng : 'secret', dra : 'irthos' },
+			{ eng : 'see', dra : 'ocuir' }, { eng : 'service', dra : 'ahmik' }, { eng : 'shadow', dra : 'sjach' }, { eng : 'silver', dra : 'orn' },
+			{ eng : 'sister', dra : 'briinah' }, { eng : 'skin (hide)', dra : 'molik' }, { eng : 'slaughter', dra : 'kurik' }, { eng : 'small', dra : 'kosj' },
+			{ eng : 'smart', dra : 'othokent' }, { eng : 'so', dra : 'zyak' }, { eng : 'soar', dra : 'hysvear' }, { eng : 'song', dra : 'miirik' },
+			{ eng : 'sorcerer', dra : 'vorastrix' }, { eng : 'speak', dra : 'renthisj' }, { eng : 'spear', dra : 'ner' }, { eng : 'specter', dra : 'brendon' },
+			{ eng : 'star', dra : 'isk' }, { eng : 'steel', dra : 'vyth' }, { eng : 'stone', dra : 'ternesj' }, { eng : 'stop', dra : 'pok' },
+			{ eng : 'storm', dra : 'kepesk' }, { eng : 'strong', dra : 'versvesh' }, { eng : 'stupid', dra : 'pothoc' }, { eng : 'suffer', dra : 'aus' },
+			{ eng : 'sword', dra : 'caex' }, { eng : 'take', dra : 'clax' }, { eng : 'talk', dra : 'ukris' }, { eng : 'thief', dra : 'virlym' }, 
+			{ eng : 'through', dra : 'erekess' }, { eng : 'to', dra : 'ekess' }, { eng : 'tomorrow', dra : 'earenk' }, { eng : 'travel', dra : 'ossalur' },
+			{ eng : 'treasure', dra : 'rasvim' }, { eng : 'tooth', dra : 'oth' }, { eng : 'servant', dra : 'aar' }, { eng : 'ugly', dra : 'nurh' },
+			{ eng : 'undead', dra : 'kaegro' }, { eng : 'under', dra : 'onureth' }, { eng : 'valley', dra : 'arux' }, { eng : 'victory', dra : 'vivex' },
+			{ eng : 'want', dra : 'tuor' }, { eng : 'war', dra : 'aryte' }, { eng : 'water', dra : 'hesjing' }, { eng : 'we', dra : 'yth' },
+			{ eng : 'wealth', dra : 'noach' }, { eng : 'weapon', dra : 'laraek' }, { eng : 'white', dra : 'aussir' }, { eng : 'with', dra : 'mrith' },
+			{ eng : 'wizard', dra : 'levethix' }, { eng : 'wood', dra : 'grovisv' }, { eng : 'wound', dra : 'ahraan' }, { eng : 'wrath', dra : 'bah' },
+			{ eng : 'year', dra : 'eorikc' }, { eng : 'yellow', dra : 'yrev' }, { eng : 'yes', dra : 'axun' }, { eng : 'yet', dra : 'sjerit' },
+			{ eng : 'you', dra : 'wux' }]
+			
+			const randomize = () => {
+				let engName = '';
+				let draName = '';
+				for(let i = 0; i < document.querySelector('#limit').value; i++){
+					const num = generate();
+					engName += ' ' + draconic[num].eng;
+					draName += draconic[num].dra;
+					console.log(engName + ' ' + draName);
+				}
+				document.querySelector('#dragonName').innerHTML = draName;
+				console.log(document.querySelector('#dragonName'));
+				document.querySelector('#englishTrans').innerHTML = engName;
+			}
+			
+			const generate = () => {
+				return Math.floor(Math.random() * draconic.length);
+			}
+		</script>
+	</body>
+</html>
